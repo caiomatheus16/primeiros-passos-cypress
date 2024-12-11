@@ -12,8 +12,9 @@ describe('Orange HRM Tests', () => {
     firstNameField : "[name='firstName']",
     lastNameField : "[name='lastName']",
     genericNameField : ".oxd-input--active",
-    middleNameField : "[name='middleName']"
-}
+    middleNameField : "[name='middleName']",
+    updateField:".oxd-select-text-input"
+   }
 
   it.only('User info Update - Sucess', () => {
     cy.visit('/auth/login')
@@ -22,12 +23,19 @@ describe('Orange HRM Tests', () => {
     cy.get(selectorsList.submitField).type('click')
     cy.location('pathname').should('equal', '/web/index.php/dashboard/index')
     cy.get(selectorsList.dashboardGrid)
-    cy.get (selectorsList.myInfoButton).type('click')
-    cy.get (selectorsList.firstNameField).type('FirstNameTest')
-    cy.get (selectorsList.lastNameField).type('LastNameField')
-    cy.get (selectorsList.middleNameField).type('MiddleNameField')
-    cy.get (selectorsList.genericNameField).eq(4).type('otherIdTest')
-    cy.get (selectorsList.genericNameField).eq(5).type ('DriverLicenseTest')
+    cy.get(selectorsList.myInfoButton).type('click')
+    cy.get(selectorsList.firstNameField).type('FirstNameTest')
+    cy.get(selectorsList.lastNameField).type('LastNameField')
+    cy.get(selectorsList.middleNameField).type('MiddleNameField')
+    cy.get(selectorsList.genericNameField).eq(4).type('otherIdTest')
+    cy.get(selectorsList.genericNameField).eq(5).type ('DriverLicenseTest')
+    cy.get(selectorsList.updateField).eq(0).type('click')
+    cy.contains('Albanian').click()
+    cy.get(selectorsList.updateField).eq(1).type('click')
+    cy.contains('Married').click()
+    cy.get(selectorsList.updateField).eq(2).type('click')
+    cy.contains('B-').click()
+    
    })
   it('Login with Fail', () => {
     cy.visit('/auth/login')
